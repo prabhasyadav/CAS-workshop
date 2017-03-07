@@ -1,0 +1,292 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 14.12.1 ] */
+
+/* [wxMaxima: title   start ]
+Grpahics with Maxima
+
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: section start ]
+plot2D ()
+
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+A simple plot of exp(-t/10)*cos(10*t) when t = 0 to 10.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d(exp(-t/10)*cos(10*t),[t, 0,10]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+check what happens when we use wxplot2d instead of plot2d
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d(exp(-t/10)*cos(10*t),[t, 0,10]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Plotting is that simple. Let us use OPTIONS
+The first option: let us set y-range to [y, 0, 1]
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d(exp(-t/10)*cos(10*t),[t, 0,10], [y,0,5]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+The plot that goes to infinite, e.g., sec(x)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d(sec(x), [x,-2,2])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+The sec(x) plot with y= -20 to 20
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d(sec(x), [x,-2,2],[y,-20,20])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Plotting more than one data in a plot. 
+we define function: f(t):=exp(-t/10)*cos(10*t)
+and g(t):=0.5*exp(-t/10)*sin(10*t)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(t):=exp(-t/10)*cos(10*t)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g(t):=0.5*exp(-t/10)*sin(10*t)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([f(t), g(t)], [t, 0,4])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+The legend of the above plot look awful. We replace it with our own.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([f(t), g(t)], [t, 0,4],[legend, "velocity","acceleration"])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+A better looking plot- high engineering value
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([sin(x),sec(x),tan(x)], [x,-5,5],[y,-5,5],[legend,"sin","cos","tan"],[xlabel,"angle"],[ylabel,"functions"])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Plotting Discrete Data 
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Say we have experimental data set pressure (p) changing over time (t), i.e.,
+t = [0,1,2,3,4,5,6] and p = [0,1.8,3.5,10.5,12.0,15.5,17.3]
+
+These data can be plotted using plot2d([discrete, t, p]). First we define, t and p (: makes the list!!!)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+t : [0,1,2,3,4,5,6]
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+p : [0,1.8,3.5,10.5,12.0,15.5,17.3]
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([discrete, t, p], [xlabel, "t"],[ylabel,"p"])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([discrete, t, p], [xlabel, "t"],[ylabel,"p"],[grid2d])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Now, we use more options available to customize our plot. Most often used options are:
+xlabel, ylabel, legend, color, style, point_type, nticks, logx, logy, axes, box, plot_realpart etc.
+Let us try a few. You can find more about each of the options at:http://maxima.sourceforge.net/docs/manual/maxima_100.html#Category_003a-Plotting
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+First we use style options and we select points and then 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([discrete, t, p],[style, points], [point_type, plus], [color, red] );
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Next we change change the point_type and use log scales and also use linespoints and box symbol.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([discrete, t, p],[style, linespoints], [point_type, box], [color, red],logx,logy );
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+One more plot: we plot two functions and style it line and points and assign differnt color to each of them.
+The numbers after the "points" command refer to the thickness of the line and the colour code:
+The default color codes are: 1: blue, 2: red, 3: magenta, 4: orange, 5: brown, 6: lime and 7:aqua
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([cos(x),x^2],[x,-1,5],[y,-4,4],[style,[lines,1,4],[points,0.3,6]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Let us erase all the stored variables before moving to next section.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Use of plots in Engineering
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Engineering requires calculations but most importantly analysis of results. Graphics are for Engineering Analysis.
+In this section we attempt to solve the open channel problem once more.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+The specific energy in an open channel is defined as the energy per unit weight measured
+from the channel bottom. The equation that defines specific energy is:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EnerEq: E = y+v^2/(2*g);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+where E = specific energy, v = flow velocity, g = acceleration of gravity, and y = flow depth.
+The flow velocity, in turn, is defined in terms of the unit discharge (or discharge per unit
+width), q, as v = q/y, and replaced into the energy equation as:
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Next, we substitute v=q/y in the EnerEq
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EnerEqq: subst(v=q/y,EnerEq);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Next, we replace the values q = 2.5 m2/s, and g = 10 m/s2, and define a function E(y)
+using the right-hand side (rhs) of the equations EnerEqQ:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+E(y):=subst([q=5.0, g=10], rhs(EnerEqq));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+To see the expression for the function E(y) use:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+E(y)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Now we plot the function E(y) for y = 0.1 to 10.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d(E(y),[y,0.1,10],[y,0.1,10],[style,[lines,2,2]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Finally, we see how our energy line deviates from the equilibrium line by ploting a y-y line.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([E(y),y],[y,0.1,10],[y,0.1,10],[style,[lines,2,2], [lines,1,1]],[xlabel,"y(m)"],[ylabel,"E(m)"], [legend, false]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+The plot show that y>3m the Energy will be inaccordance with the equilibrium line or behaves as asymptotic.
+But y<3m, E explodes to infinity. 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Special Plots
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: subsect start ]
+Histogram
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+s1 : read_list (file_search ("pidigits.data"))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxhistogram (
+           s1,
+           nclasses     = 8,
+           title        = "pi digits",
+           xlabel       = "digits",
+           ylabel       = "Absolute frequency",
+           fill_color   = grey,
+           fill_density = 0.6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Contour Plot
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+wxcontour_plot (x^2 + y^2, [x, -4, 4], [y, -4, 4])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Butterfly curve
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+r: (exp(cos(t))-2*cos(4*t)-sin(t/12)^5)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d([parametric, r*sin(t), r*cos(t), [t, -8*%pi, 8*%pi]])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+The 3D plot
+ 
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot3d(x*sin(y)+y*sin(x), [x,-2*%pi,2*%pi],[y, -2*%pi, 2*%pi]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ plot3d(x*sin(y)+y*sin(x), [x,-2*%pi,2*%pi],[y, -2*%pi, 2*%pi], [plot_format, xmaxima] );
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+ENJOY and Good Luck
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

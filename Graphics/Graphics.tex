@@ -1,0 +1,418 @@
+\documentclass[10pt]{beamer}
+\usepackage{ragged2e}
+\usepackage{tfrupee}  
+\usepackage{xcolor,colortbl}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{ccicons}
+\hypersetup{
+colorlinks=true,     
+urlcolor= red}
+\usetheme[               % right of left position of sidebar (default is right)
+  ]{Aalborg}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage{helvet}
+\newcommand{\gray}{\rowcolor[gray]{.05}}
+\definecolor{gold}{rgb}{0.85,.66,0}
+ \definecolor{khaki}{rgb}{0.941176,0.901961,0.549020}
+\definecolor{saffron}{rgb}{0.96, 0.77, 0.19}
+\definecolor{sand}{rgb}{0.76, 0.7, 0.5}
+\definecolor{ablue}{rgb}{0.94, 0.97, 1.0}
+\definecolor{cgreen}{rgb}{0.0, 0.42, 0.24}
+\setbeamercolor{bgcolor}{fg=black,bg=ablue}
+\setbeamercolor{separation line}{use=structure,bg=structure.fg!20!bg}
+\setbeamercolor{block body}{fg=black,bg=ablue}
+\setbeamercolor{footlinecolor}{fg=white,bg=sand}
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+  \setlength{\textwidth}{#1}
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}}
+  {\par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}}
+
+\newcommand{\ma}{\textbf{Maxima {}}}
+\newcommand{\wma}{\textit{WxMaxima {}}}
+
+\setbeamercolor{normal text}{fg=black} 
+
+
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}%
+}
+
+\title[The CAS Workshop]
+{ Workshop on\\ \textbf{{\huge Computer Algebra System (CAS)}}\vspace{0.2cm}}
+
+\subtitle{\textbf{Session: Graphics with CAS}}  % could also be a conference name
+
+%\date{\today}
+\date{10. 04. 2016}
+
+\author[\ccbyncndeu$\,$ P. K. Yadav] % optional, use only with lots of authors
+{
+	\textbf{P. K. Yadav \& K. Taneja}\\
+	\href{mailto:khusboo.taneja@sharda.ac.in}{{\tt khusboo.taneja@sharda.ac.in}}
+}
+
+
+\institute[
+Dept.\ of Civil Engineering\\
+Dept.\ of Computer Sci. \& Engg.\\
+Sharda University\\] 
+{
+	Department of Civil Engineering\\
+	Dept.\ of Computer Sci. \& Engg.\\
+}
+\pgfdeclareimage[height=0.5cm]{mainlogo}{fig/logo.png} % placed in the upper left/right corner
+\logo{\pgfuseimage{mainlogo}}
+
+
+\pgfdeclareimage[height=1.5cm]{titlepagelogo}{fig/logo.png} % placed on the title page
+
+\titlegraphic{% is placed on the bottom of the title page
+  \pgfuseimage{titlepagelogo}
+
+}
+
+\begin{document}
+% the titlepage
+{\aauwavesbg
+\begin{frame}[plain,noframenumbering] % the plain option removes the sidebar and header from the title page
+  \titlepage
+\end{frame}}
+
+
+\section{Motivation}
+% motivation for creating this theme
+\begin{frame}{Motivation}{}
+\begin{block}{Graphics with CAS}
+\justifying
+\vspace{0.5cm}
+Interpretation is the final goal of scientific work, and visualization is the most important tool. \\
+\vspace{0.2cm}
+
+Visualization in modern scientific study is more widely used in the development of a underlying model of a experimental or physical system.\\
+\vspace{0.2cm}
+
+Commercial CAS systems such as Maple\textsuperscript{TM} or 
+Mathematica\textsuperscript{TM} provide a comprehensive visualization tool with an intuitive GUI. Maxima on the other hand links to GNUplot, a complete plotting tool but with limited GUI.\\
+\vspace{0.2cm}
+
+
+\vspace{0.2cm}
+Here we learn the basics of data and problem visualization with CAS Maxima.
+ 
+
+ 
+\end{block}
+\end{frame}
+
+\section{2D plot with Maxima}
+
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d()}
+
+The \verb|plot2d| is perhaps the most useful function for plotting in \ma. It come in the following different forms:
+\\
+\vspace{0.2cm}
+
+\verb|plot2d(plot,xrange,options)| \\
+\vspace{0.1cm}
+\verb|plot2d([plot 1, ..., plot n], options)|\\
+\vspace{0.1cm}
+\verb|plot2d([plot 1, ..., plot n], xrange,options)|\\
+\vspace{0.2cm}
+
+where, \verb|plot, plot 1,..., plot_n| can be \textcolor{red}{expressions}, \textcolor{red}{function names}, or a \textcolor{red}{list} with the any of these forms: \\
+\vspace{0.2cm}
+\verb|[[x1, ..., xn], [y1, ..., yn]]|,\\\verb|[discrete, [[x1, y1], ..., [x_n, y_n]]]|, or\\ 
+\verb|[parameteric, x_expr, y-expr, t_range]|
+\\ 
+\vspace{0.2cm}
+The syntax for $x$ range is: \verb|[variable, min, max]|.
+\\ 
+
+\end{block}
+\end{frame}
+
+\subsection{Plot2D ( ) examples}
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d() Examples}
+Let us start simple by plotting the function: $\color{red}\exp(-t/10)*\cos(10*t)$. \\
+\vspace{0.2cm}
+
+\begin{columns}
+
+\column{.5\textwidth}
+
+The default plot for $t$ = 0 to 10
+
+\includegraphics[width=5cm]{fig/fig1}
+
+\column{.5\textwidth}
+Plot with \textbf{option}: [y, 0, 1]
+\includegraphics[width=5cm]{fig/fig2}
+
+\end{columns}
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d() When y-range is important}
+The function that goes to infinite, e.g., $\color{red}\sec(x)$. \\
+\vspace{0.2cm}
+
+\begin{columns}
+
+\column{.5\textwidth}
+
+Plot of $\sec(x)$ for $x$ = -2 to 2
+
+\includegraphics[width=5cm]{fig/fig3}
+
+\column{.5\textwidth}
+Plot with \textbf{option}: [y, -20, 20]
+\includegraphics[width=5cm]{fig/fig4}
+
+\end{columns}
+
+Fixing the range of $y$ provides information when the function $\sec(x)$ will have a finite value.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d() Plotting different data}
+
+We normally plot 2 or more data in the same plot, and this necessitates the use of \textbf{legend} 
+
+\begin{columns}
+
+\column{.5\textwidth}
+
+we plot: $f(t):=\exp(-t/10)*\cos(10*t)$
+and $g(t):=0.5*\exp(-t/10)*\sin(10*t)$
+
+\includegraphics[width=5cm]{fig/fig5}
+\vspace{0.3cm}
+\column{.5\textwidth}
+
+The legend of the above plot look awful. We replace it with our own.
+\includegraphics[width=5cm]{fig/fig6}
+
+\end{columns}
+
+Similarly we can change the \textbf{labels} of \textit{x}-axis and \textit{y}-axis using \verb|[xlabel," " ]|
+and  \verb|[ylabel," " ]|.
+\end{block}
+\end{frame}
+
+\subsection{Discrete data plot}
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d() Discrete Data Plots}
+
+Say we have experimental data set pressure (p) changing over time (t), i.e.,
+\verb|t = [0,1,2,3,4,5,6]| and \verb|p = [0,1.8,3.5,10.5,12.0,15.5,17.3]|\\
+
+These data can be plotted using \verb|plot2d([discrete, t, p])|.
+
+\includegraphics[width=7cm]{fig/fig7}
+
+We also including the \verb|gri2d| option in the above plot.
+
+
+\end{block}
+\end{frame}
+
+\subsection{Other Plot Options}
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d() Plot Options}
+
+The plot can be customized by many more options. Some of the other ones that we have not used are: \verb|[xlabel, ylabel, legend, color, style, point_type,|\\ \verb|nticks, logx, logy, axes, box, plot_realpart]|. 
+\vspace{0.2cm}
+\begin{columns}
+\column{.5\textwidth}
+The use of \verb|style|= \verb|[style, points]| and \verb|point_type| = \verb|[point_type, plus]|
+
+\includegraphics[width=5cm]{fig/fig8}
+
+
+\column{.5\textwidth}
+
+The use of \verb|style|= \verb|[style, linespoints]| and \verb|point_type| = \verb|[point_type, box]|
+\includegraphics[width=5cm]{fig/fig9}
+
+\end{columns}
+
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{The plot2d function}{}
+\begin{block}{plot2d() Plot Options}
+
+The plot can be customized in numerous ways and there exist several commands to do that. For more options you should look at \href{http://maxima.sourceforge.net/docs/manual/maxima_100.html#Category_003a-Plotting}{here}. One more plot:
+\begin{center}
+\includegraphics[width=6cm]{fig/fig10}
+\end{center}
+The command: \verb|wxplot2d([cos(x),x^2],[x,-1,5],[y,-4,4],|\\\verb|[style,[lines,1,4],[points,0.3,6]]);|
+
+\end{block}
+\end{frame}
+
+\section{Plots in Engineering}
+\subsection{The Open channel Problem}
+\begin{frame}[fragile]{Plots in Engineering}{}
+\begin{block}{Revisiting the Open Channel Problem}
+Engineering calculation follows analysis. Graphics are used for Engineering Analysis.\\
+\vspace{0.2cm}
+We revisit the open channel problem once again to find out how graphics can be useful for Engineering Analysis.\\
+\vspace{0.2cm}
+The specific energy in an open channel is defined as the energy per unit weight is 
+
+$$
+E = \frac{v^2}{2g}+y
+$$
+
+where E = specific energy, v = flow velocity, g = acceleration of gravity, and y = flow depth
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Plots in Engineering}{}
+\begin{block}{Revisiting the Open Channel Problem}
+The flow velocity, in turn, is defined in terms of the unit discharge (or discharge per unit
+width), $q$, as $v = q/y$, and replaced into the energy equation as:
+$$
+E = y+ \frac{q^2}{2gy^2}
+$$
+
+when we substitute $q = 5$ m$^2$/s and g=10 m$^2$/s into $E$, we get
+$$
+E = y+ \frac{1.25}{y^2}
+$$
+
+We may re-write the final expression as:
+
+$$
+E(y) = y+ \frac{1.25}{y^2}
+$$
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Plots in Engineering}{}
+\begin{block}{Revisiting the Open Channel Problem}
+$E(y)$ is now defined and can be evaluated for different values of $y$. A plot becomes useful here. We use\\
+\vspace{0.2cm}
+
+\verb|plot2d(E(y),[y,0.1,10],[y,0.1,10],[style,[lines,2,2]])|
+\centering
+\includegraphics[width = 8cm]{fig/fig11}
+
+
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Plots in Engineering}{}
+\begin{block}{Revisiting the Open Channel Problem}
+Finally, we see how our energy line deviates from the equilibrium line by ploting a $y-y$ line.\\
+\vspace{0.1cm}
+\scriptsize
+\verb|plot2d([E(y),y],[y,0.1,10],[y,0.1,10],[style,[lines,2,2], [lines,1,1]]|,\\\verb|[xlabel,"y(m)"],[ylabel,"E(m)"], [legend, false]|
+
+\begin{center}
+\includegraphics[width = 6cm]{fig/fig12}
+\end{center}
+The plot show that $y>3m$ the Energy will be inaccordance with the equilibrium line. But $y<3m$, $E$ explodes to infinity. 
+
+\end{block}
+\end{frame}
+
+\section{Advanced Graphics}
+\begin{frame}[fragile]{Advanced graphics}{}
+\begin{block}{Statistical Plot}
+
+We now briefly learn about special and advanced graphics that are possible from \ma.\\\vspace{0.2cm}. The Histogram from \ma.
+\begin{center}
+\includegraphics[width = 8cm]{fig/fig13}
+\end{center}
+
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Advanced graphics}{}
+\begin{block}{Contour Plot}
+
+The contour plot from \ma.
+\begin{center}
+\includegraphics[width = 10cm]{fig/fig14}
+\end{center}
+
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Advanced graphics}{}
+\begin{block}{The Butterfly}
+
+Get that butterfly curve- parametric curve
+\begin{center}
+\includegraphics[width = 9cm]{fig/fig15}
+\end{center}
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Advanced graphics}{}
+\begin{block}{The 3D plot}
+
+The 3D plot
+\begin{center}
+\includegraphics[width = 9cm]{fig/fig16}
+\end{center}
+
+\end{block}
+\end{frame}
+
+\section{Final Thoughts}
+\begin{frame}[fragile]{The Final Thoughts}{}
+\begin{block}{The helpful links}
+
+We explored a bit about of graphics possibilities with \ma. I am listing few references that you can use to advance yourself.
+
+\begin{enumerate}
+\item Maxima manual can be very helpful. Get it from \href{http://maxima.sourceforge.net/docs/manual/maxima.pdf}{here}.
+\item A well documented graphics manual can be found at \href{http://www.austromath.at/daten/maxima/zusatz/Graphics_with_Maxima.pdf}{here}.
+\item Soon you will realize that \ma contains several additional packages that can be loaded to increase its graphics output. One good documentation can be obtained from \href{http://emp.byui.edu/BrownD/CAS/wxMaxima/Graphs-Graphics-07-wxMax.pdf}{here}
+\item Last but not the least, the web-based \ma can be used from \href{http://maxima-online.org/help.html}{here} and the online \ma manual pointing to the graphics functions is at \href{http://maxima.sourceforge.net/docs/manual/maxima_100.html#Category_003a-Plotting}{here}. 
+
+
+\end{enumerate}
+
+
+\end{block}
+\end{frame}
+
+
+
+
+
+
+{\aauwavesbg%
+\begin{frame}[plain,noframenumbering]%
+  \finalpage{\huge Enjoy the \ma, maths and Good luck with your future works.  \\ \vspace{0.3cm}\textbf{\textcolor{yellow}{Contact Mr. Ruban Sugumar if you need more of \ma}}}
+\end{frame}}
+
+
+\end{document}
