@@ -1,0 +1,518 @@
+\documentclass[10pt]{beamer}
+\usepackage{ragged2e}
+\usepackage{tfrupee}  
+\usepackage{xcolor,colortbl}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{ccicons}
+\hypersetup{
+colorlinks=true,     
+urlcolor= red}
+\usetheme[               % right of left position of sidebar (default is right)
+  ]{Aalborg}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage{helvet}
+\newcommand{\gray}{\rowcolor[gray]{.05}}
+\definecolor{gold}{rgb}{0.85,.66,0}
+ \definecolor{khaki}{rgb}{0.941176,0.901961,0.549020}
+\definecolor{saffron}{rgb}{0.96, 0.77, 0.19}
+\definecolor{sand}{rgb}{0.76, 0.7, 0.5}
+\definecolor{ablue}{rgb}{0.94, 0.97, 1.0}
+\definecolor{cgreen}{rgb}{0.0, 0.42, 0.24}
+\setbeamercolor{bgcolor}{fg=black,bg=ablue}
+\setbeamercolor{separation line}{use=structure,bg=structure.fg!20!bg}
+\setbeamercolor{block body}{fg=black,bg=ablue}
+\setbeamercolor{footlinecolor}{fg=white,bg=sand}
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+  \setlength{\textwidth}{#1}
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}}
+  {\par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}}
+
+\newcommand{\ma}{\textbf{Maxima {}}}
+\newcommand{\wma}{\textit{WxMaxima {}}}
+
+\setbeamercolor{normal text}{fg=black} 
+
+
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}%
+}
+
+\title[The CAS Workshop]
+{ Workshop on\\ \textbf{{\huge Computer Algebra System (CAS)}}\vspace{0.2cm}}
+
+\subtitle{\textbf{Session: Solving Equations with CAS}}  % could also be a conference name
+
+%\date{\today}
+\date{10. 04. 2016}
+
+\author[\ccbyncndeu$\,$ P. K. Yadav] % optional, use only with lots of authors
+{
+	\textbf{P. K. Yadav \& K. Taneja}\\
+	\href{mailto:khusboo.taneja@sharda.ac.in}{{\tt khusboo.taneja@sharda.ac.in}}
+}
+
+
+\institute[
+  Dept.\ of Civil Engineering\\
+  Dept.\ of Computer Sci. \& Engg.\\
+  Sharda University\\] 
+{
+  Department of Civil Engineering\\
+  Dept.\ of Computer Sci. \& Engg.\\
+}
+
+\pgfdeclareimage[height=0.5cm]{mainlogo}{fig/logo.png} % placed in the upper left/right corner
+\logo{\pgfuseimage{mainlogo}}
+
+
+\pgfdeclareimage[height=1.5cm]{titlepagelogo}{fig/logo.png} % placed on the title page
+
+\titlegraphic{% is placed on the bottom of the title page
+  \pgfuseimage{titlepagelogo}
+
+}
+
+\begin{document}
+% the titlepage
+{\aauwavesbg
+\begin{frame}[plain,noframenumbering] % the plain option removes the sidebar and header from the title page
+  \titlepage
+\end{frame}}
+
+
+\section{Motivation}
+% motivation for creating this theme
+\begin{frame}{Motivation}{}
+\begin{block}{Solving Equations with CAS}
+\justifying
+\vspace{0.5cm}
+Engineering and Science  is all about equations. We have different types of equations: Algebraic (polynomial), parametric equations, the calculus equations- differential equations, integral equations etc.\\
+\vspace{0.2cm}
+
+The actual Engineering or Scientific challenge is finding the solution of the equations.\\
+\vspace{0.2cm}
+The challenge has become bigger due to bigger Engineering or Scientific demand.\\
+\vspace{0.2cm}
+The use of computer can now let us solve equations more efficiently and CAS is one of the best ``Analytical" tool as opposed to ``Numerical'' Tool- e.g., MATLAB, Numpy etc.\\
+\vspace{0.2cm}
+We now learn to use CAS \ma for solving  equations.
+ 
+
+ 
+\end{block}
+\end{frame}
+
+\section{Solve with solve}
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{ Solving Equation and Equations}
+\justifying
+The functions:\\
+\begin{enumerate}
+\item \textbf{\textcolor{red}{solve(eqn, var)}}\\
+\item \textbf{\textcolor{red}{solve([eqn1, eqn2,\ldots], [var1, var2,\dots])}}\\
+\end{enumerate}
+ 
+ solves the \textbf{algebraic} equation (expression or function)  for the variable (in 1) or variables (in 2) \textbf{var} in equation (in 1) or equations (in 2) and returns a \textbf{list} of solutions in \textbf{var}.\\
+\vspace{0.2cm}
+
+If \verb|expr| is not an `equation', the equation \verb|expr= 0| is assumed. \\
+\vspace{0.2cm}
+
+Variants of the \verb|solve| and related function can be found using \verb|appropos(solve)| and described using, e.g., \verb|describe(solve)|.
+\\
+\vspace{0.2cm}
+Let us learn the \verb|solve| functions from examples.
+
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The MAXIMA CAS}{}
+\begin{block}{The function solve(eq, var) \vspace{0.2cm} }
+\justifying
+1. The quadratic equation (you all know this!):\\
+
+ \begin{beamercolorbox}[rounded=true, left, shadow=true,wd=9cm, colsep=1.5pt]{upper separation line foot}
+ \vspace{-0.1cm}
+\begin{minipage}[t]{8ex}{\color{red}\bf
+\begin{verbatim}
+(%i1) solve(a*x^2+b*x+c=0,x);
+\end{verbatim}}
+\end{minipage}
+
+\vspace{0.05cm}
+
+\definecolor{labelcolor}{RGB}{100,0,0}
+$$
+(\%o1)\quad \left[ x=-{{\sqrt{b^2-4\,a\,c}+b}\over{2\,a}} , x={{\sqrt{b^2-4\,a \,c}-b}\over{2\,a}} \right] 
+$$
+
+\end{beamercolorbox}
+
+\vspace{0.2cm}
+let us define, $a, b\, \textrm{and}\, c$ and find the numerical value of $x$.
+
+ \begin{beamercolorbox}[rounded=true, left, shadow=true,wd=9cm, colsep=1.5pt]{upper separation line foot}
+ \vspace{-0.1cm}
+\begin{minipage}[t]{8ex}{\color{red}\bf
+\begin{verbatim}
+(%i1) [a,b,c]: [5,3,2];
+\end{verbatim}}
+\end{minipage}
+
+\vspace{0.05cm}
+
+\definecolor{labelcolor}{RGB}{100,0,0}
+$$
+(\%o1)\quad \left[ x=-2, x=-1 \right] 
+$$
+
+\end{beamercolorbox}
+
+You may want to check your solution function \textcolor{red}{ev(eq1,sol)}. The \verb|eq1| is your equation and \verb|sol| is the solution.
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The function solve(eq, var) \vspace{0.2cm} }
+\justifying
+OK, that was easy, now \\
+\begin{enumerate}
+\item  Let us try to solve the cubic equation: $ax^3+bx^2+cx+d = 0$ in \wma, and\\\vspace{0.1cm}
+\item The quartic equation $ax^4+bx^3+cx^2+d*x + e = 0$
+\end{enumerate}
+\vspace{0.2cm}
+You may want to use $[a, b, c, d] : [6, -3, 1, -1 ] $ and $e = 125$\\
+\vspace{0.2cm}
+And, get the numerical values using \verb|numer| or \verb|float| function.\\
+\vspace{0.2cm}
+
+You may get a complex result.
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The function solve([eq1,eq2,...], [var1,var2,...]) \vspace{0.2cm} }
+\justifying
+Now we attempt to solve set of equations using solve. The \verb|solve| function will now include all equations separated by `\textbf{\textcolor{red}{,}}' and enclosed in \textbf{\textcolor{red}{[\hspace{0.2cm}]}}. The same is done for variables.\\
+\vspace{0.2cm} 
+Let us look at an example\\
+\vspace{0.2cm} 
+
+ \begin{beamercolorbox}[rounded=true, left, shadow=true,wd=6cm, colsep=1.5pt]{upper separation line foot}
+ \vspace{-0.1cm}
+\begin{minipage}[t]{8ex}{\color{red}\bf
+\begin{verbatim}
+(%i1) eq2: [3*x+2*y=5, 6*x+y=0]
+\end{verbatim}}
+\end{minipage}
+
+\vspace{0.05cm}
+
+\definecolor{labelcolor}{RGB}{100,0,0}
+$$
+(\%o1)\quad \left[ x=-\frac{5}{9}, x=\frac{10}{3} \right] 
+$$
+
+\end{beamercolorbox}
+\vspace{0.2cm}
+How about solving: $\sqrt{x}+y=0 \, \textrm{and} \, \sqrt{x}=1\, \textrm{for}\, x \, \textrm{and}\, y$\\
+\vspace{0.2cm}
+
+For that you will have to use another function called:\\
+\verb|to_poly_solve|. Check the \wma for more.
+
+\vspace{0.2cm}
+
+You may want to learn more on that by yourself.
+
+
+\end{block}
+\end{frame}
+
+
+\section{Engineering Problems}
+\subsection{Decay}
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The Engineering Problems- Decay \vspace{0.2cm} }
+\justifying
+The radioactive decay model is:
+
+$$
+DEq:q=q_0\exp\frac{-t}{\tau}
+$$
+
+We can find the rate of reaction ($\tau$) by first solving the equation using \verb|solve| function and substituting the values $q_0 = 10 g, q = 4 g \, \textrm{and} \,t= 2s$ using another function \textcolor{red}{subst([val1, val2,\ldots], sol)}. \\
+
+\vspace{0.2cm}
+
+We should get $\tau = 2.18$. \\
+\vspace{0.2cm}
+
+Now if half-life ($t_{1/2}$) is to be found, we can use the relation
+$$
+t_{1/2} = \frac{\ln(2)}{\tau}
+$$
+
+We obtain $t_{1/2} = 0.317 $
+
+
+\end{block}
+\end{frame}
+
+\subsection{Motion Trajectory }
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The Engineering Problems-  The Motion Trajectory \vspace{0.2cm} }
+\justifying
+\textbf{The two-dimensional motion under constant acceleration}\\
+\vspace{0.1cm}
+
+Let a ball is moving with constant acceleration in the $y-$
+direction only (see Figure). The equations for the position of the ball in the \textit{x} and \textit{y} directions at any time \textit{t} are given by equations EqX and EqY:
+
+\begin{columns}
+\column{.5\textwidth}
+EqX: $x =x_0+v_0\cos\theta t $\\
+and\\
+\vspace{0.2cm}
+EqY: $y=y_0+v_0\sin\theta t+\frac{1}{2}at^2 $\\
+\vspace{0.2cm}
+$v_0$ (the initial velocity) and $a$ (the acceleration), have to be obtained provided that initial position ($x_0,y_0$), $\theta$ and $t$ are known.
+
+
+\column{.5\textwidth}
+\includegraphics[width = 5cm]{fig1}
+\end{columns}
+
+
+
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The Motion Trajectory \vspace{0.2cm} }
+\justifying
+
+Using function \verb|solve|, we can solve two simultaneous equation $EqX$ and $EqY$ for $v_0$ and $a$ 
+
+ \begin{beamercolorbox}[rounded=true, left, shadow=true,wd=9cm, colsep=1.5pt]{upper separation line foot}
+ \vspace{-0.1cm}
+\begin{minipage}[t]{8ex}{\color{red}\bf
+\begin{verbatim}
+(%i1) SolXY: solve([EqX,EqY], [v0, a])
+\end{verbatim}}
+\end{minipage}
+
+\vspace{0.05cm}
+
+\definecolor{labelcolor}{RGB}{100,0,0}
+$$
+(\%o1)\qquad v0=-\frac{x0-x}\cos(\theta)t\,,
+$$
+$$
+a=\frac{\cos(\theta)2y-2y0 +2\sin(\theta)x0-2\sin (\theta)x}{{t}^{2}\cos(\theta)}
+$$
+\end{beamercolorbox}
+\vspace{0.1cm}
+Let us use  $x0 = 0, x = 2 m, y0 = 2 m, y = 8 m, \theta = \pi/6,
+\,\textrm{and}\, t = 2 s$, then substituting them we get $v0$ and $a$
+
+$$
+v0=1.154 m/s\, \text{and}\, a= 2.422 m/s^2
+$$
+
+Check them in \wma.
+
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The Motion Trajectory \vspace{0.2cm} }
+\justifying
+
+Few notes on the trajectory problem before we move to another problem:
+\begin{enumerate}[A)]
+\item \verb|solve| will not be able to obtain solution for $theta$, because it is not algebraic and can not be linearly isolated. 
+
+\item A solution for $x0$ and $t$ is allowed because both terms are algebraic in the
+equations, even if $t$ is quadratic.
+
+\end{enumerate}
+
+For the case A): a numerical solution using function \verb|find_root| can be used after substituting all the known values in the equations.\\
+\vspace{0.2cm}
+You may want to try the above in \wma.
+
+
+\end{block}
+\end{frame}
+
+\subsection{Open channel}
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The Engineering Problems-  The open channel problem  \vspace{0.2cm} }
+\justifying
+
+Let us solve the Manning's equation for a circular open channel.\\
+\vspace{0.2cm}
+The cross-section of a circular channel is characterized by its diameter \textit{D}, and its depth \textit{y}. These two variables are related by
+the half-angle $\beta$, such that $\cos(\beta) = 1-2(y/D)$. 
+\vspace{0.3cm}
+\begin{columns}
+\column{0.5\textwidth}
+
+Let us start with Manning's equation:\\
+$$\textrm{EqM}: v = \frac{kR^{2/3}S^{1/2}}{n}$$
+\vspace{0.2cm}
+
+\column{.5\textwidth}
+\includegraphics[width = 5cm]{fig2}
+\end{columns}
+
+
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The open channel problem  \vspace{0.2cm} }
+\justifying
+
+Next, we define the continuity equation, EqQ.\\
+$$
+\textrm{EqQ}: Q = Av
+$$
+
+And, then combine two equations using \verb|subst| function
+$$
+\textrm{EqMQ}:subst(EqM,EqQ)
+$$
+Next, we substitute the definition of the hydraulic radius:
+$$
+\textrm{EqMQ}:subst(R=A/P,EqMQ)
+$$
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The open channel problem  \vspace{0.2cm} }
+\justifying
+
+Next, we substitute the definitions of the area, \textit{A}, and wetted perimeter, \textit{P}, for a circular
+cross-section in terms of the half-angle $\beta$ to produce equation EqMQC:
+
+$$
+\textrm{EqMQC}: subst([A=\frac{D^2}{4}(\beta-\sin(\beta)\cos(\beta)),P=\beta D], EqMQ)
+$$
+
+Next, we replace the half-angle $\beta$ in terms of the depth $y$ and diameter $D$, to produce equation EqMQCy: 
+$$
+\textrm{EqMQCy}: subst(beta=\textrm{acos}(1-2y/D),EqMQC)
+$$
+
+Finally, we substitute the parameters of the problem as follows, $k = 1.486, D = 5 ft, Q =
+2.5 ft^3/s, S = 0.000023, and n = 0.012$, to create equation 
+
+\end{block}
+\end{frame}
+\subsubsection{find\_root function}
+\begin{frame}[fragile]{The find\_root function}{}
+\begin{block}{The open channel problem  \vspace{0.2cm} }
+\justifying
+
+\begin{align*}
+\textrm{EqMQCy1}&: subst([k=1.486, D=5, Q=2.5, S=0.000023,\\ & \qquad \qquad n=0.012], EqMQCy)
+\end{align*}
+
+This is the equation we need to solve for $y$. The equation is not algebraic (see $\arccos$), and therefore the \verb|solve| function will not work. Hence, a new function: $ \color{red} find\_root(exp, var, a, b) $ is introduced.\\
+\vspace{0.2cm}
+The \verb|exp| = expression,\\
+The \verb|var| = the variable\\
+The \verb|a and b| = the limit within which the root is to be searched.\\
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{The solve function}{}
+\begin{block}{The open channel problem  \vspace{0.2cm} }
+\justifying
+
+\textbf{Question}: Which interval contains the root ($f(x)=0$)?\\
+\vspace{0.2cm}
+We need to plot the problem for an easy answer. Let us do that.\\
+\vspace{0.2cm}
+For plotting, we use
+\textcolor{red}{\textbf{wxplot2d(fn,[y,0,5])}}\\
+\vspace{0.2cm}
+\begin{columns}
+\column{0.5\textwidth}
+
+The plot shows that \verb|fn=0| will be between 1 and 2. We use this as our interval.
+
+\vspace{0.2cm}
+
+\column{.5\textwidth}
+\includegraphics[width = 5.5cm]{fig3}
+\end{columns}
+
+Finally, we find the critical depth or $y$, using:
+find\_root(fn=0, y, 1,2) and get, $\color{red} y = 1.45$
+
+
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Final Thoughts}{}
+\begin{block}{Conclusions \vspace{0.2cm} }
+\justifying
+
+This was a very brief introduction to the solving of equation using \ma.\\
+\vspace{0.2cm}
+
+\ma can be used to solve varieties of ODE, and some PDE. More detail on it can be
+found in the \ma manual.\\
+\vspace{0.2cm}
+Moreover, the \wma provide us with a very handy interface to solve mathematical problems intuitively.\\
+\vspace{0.2cm}
+
+You may want to check following function in the \ma manual:\\\verb| ode2, linsolve, dsolve| for solving different types of equations.\\
+\vspace{0.2cm}
+
+We realized the importance of graphics when solving a complicated problem. We next focus on plotting.
+
+
+\end{block}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+{\aauwavesbg%
+\begin{frame}[plain,noframenumbering]%
+  \finalpage{\huge That was introduction to Solving Eqautions using \ma. Let us get advanced \\ \vspace{0.3cm}\textbf{\textcolor{yellow}{and learn to visualize maths.}}}
+\end{frame}}
+
+
+\end{document}

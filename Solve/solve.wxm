@@ -1,0 +1,318 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 14.12.1 ] */
+
+/* [wxMaxima: comment start ]
+/* This is a comment */
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: title   start ]
+Solving Equation
+
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: section start ]
+Polynomial equations with 1 variable
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+eq1: a*x^2+b*x+c=0 
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+press shift + enter to execute.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+sol1: solve(eq1,x)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+let [a, b, c] be [5,3,2] and resolve eq1 and store results in sol1
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+[a,b,c]:[5,3,2]
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+sol1:solve(eq1,x)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+sol1 is in rational form, you can get the float result using float function
+or also numer
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+float(sol1)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+To check if the solution is correct or not, we use the function ev(expr, sol)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+ev(eq1,sol1)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Remember that all variables, a, b, c, eq1, sol1 etc. are stored.
+You can remove them using kill(variable name), kill(var1,var2) or kill(all)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Exercise 1: solve cubic and quartic equations: 6*x^2-3*x+1=0 and ax^4-bx^3+cx^2+dx+e=125.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+solving several equations with several varibales
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+eq2: [3*x+2*y=5, 6*x+y=0]
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+notice the [ ], we have 2 equations with x, y variables.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+sol2: solve(eq2,[x,y])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+the [] is not used for eq2 because it is already placed when defining it
+for the variable list we use [] as it is not defined.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Now try this one
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+eq3: [sqrt(x) + y = 0, sqrt(x) = 1]
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+sol3: solve(eq3,[x,y])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Retry solving eq3 again
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+sol3: to_poly_solve(eq3,[x,y])
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+More general Problem from your course
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: subsect start ]
+The decay problem.
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+The first order radioactive decay is 
+q = q0*exp(-t/tau). We solve for tau, the decay constant
+provided that 10 g was decayed to 4 g in 2 seconds.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+We first remove all variables from the memory.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+DEq: q=q0*exp(-t/tau);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+Dsol: solve(DEq, tau);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Now we substitute (using subst) the known values to sol variable
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+sol:subst([q0=10, q=4, t = 2], Dsol);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Finally, we obtain the float value.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fpprintprec : 3; /*This is comment: setting decimal place to 3 or any other number */;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+sol,numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Half-life is t_h = ln(2)/tau. Note that tau is obtained in "sol".
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+th: log(2)/sol;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Two-dimensional motion under constant acceleration 
+
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+The Trajectory Problem
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+ kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+EqX: x = x0 +v0*cos(theta)*t;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+EqY: y = y0 +v0*sin(theta)*t+a*t^2/2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXY : solve([EqX,EqY],[v0,a]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Let us now evaluate the solution at x0=0, x=2, y0=2, y=8, theta=pi/6 and t=2 s
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXYEval: subst([x0=0, x=2, y0=2,y=8, theta=%pi/6, t=2], SolXY);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Now the non-rational value
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXYEval,numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+The double bracket [[ ]] means that the result is a matrix. To extract each result, we do
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXYEval[1][1];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXYEval[1][2];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXYA: solve([EqX,EqY],[theta,t]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+SolXYB: solve([EqX,EqY],[x0,t]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+The Manning's Equation for circular Channel
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+The open-channel problem
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+We start with Manning's equation for the partially 
+filled circular channel
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EqM: v = k/n*R^(2/3)*sqrt(s);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We now include the equation of continuity
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EqQ: Q=A*v;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We combine the Manning's equation with Equation of continuity.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EqMQ: subst(EqM,EqQ);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We set R = A/P in the combined equation
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EqMQ: subst(R=A/P, EqMQ);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We substitute wetted Area, A = D^2/4*beta-sin(beta)*cos(beta), P= beta*D to EqMQ
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EqMQC: subst([A=D^2/4*(beta-sin(beta)*cos(beta)),P=beta*D], EqMQ);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We substitute beta = acos(1-2*y/D) in EqMQC
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+EqMqCy : subst(beta=acos(1-2*y/D), EqMQC);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We substitute parameters k = 1.486, s= 0.00023, n =0.012, D=5 and Q = 2.5 to EqMqCy 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+ EqMQCy1: subst([k=1.486, Q= 2.5, D=5, s=0.000023, n=0.012], EqMqCy);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+We create a expression fn: to combine rhs  and lhs of EQMqCy1
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fn: rhs(EqMQCy1)-lhs(EqMQCy1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+we plot fn: to bracket the interval for fn=0
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d(fn,[y,0,5]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Finally, we use function find_root(fn=0, y, 1,2). In the plot
+zero seem to be between 1 and 2. We obtain the exact y.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+find_root(fn=0, y, 1,2);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
